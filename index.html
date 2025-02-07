@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Audiowide|Sofia|Trirong">
+    <title>Andrej Karpathy - AI Researcher and Educator</title>
+    <style>
+        body {
+            font-family: Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        header {
+            background-color: #333;
+            color: #fff;
+            padding: 10px 0;
+            text-align: center;
+        }
+        header h1 {
+             font-size: 24px;
+            margin: 5px 0;
+        }
+        header p {
+            font-size: 14px;
+            margin: 0;
+        }
+        nav {
+            background-color: #444;
+            overflow: hidden;
+        }
+        nav ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+        }
+        nav ul li {
+            display: inline;
+            margin: 0 15px;
+        }
+        nav ul li a {
+            color: #fff;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            padding: 20px;
+        }
+        .profile, .content {
+            background-color: #fff;
+            margin: 10px;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            border-radius: 8px;
+        }
+        .profile {
+            flex: 1 1 300px;
+            max-width: 300px;
+            text-align: center;
+        }
+        .profile img {
+            border-radius: 50%;
+            width: 150px;
+            height: 150px;
+        }
+        .content {
+            flex: 3 1 600px;
+            max-width: 800px;
+        }
+        footer {
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            position: fixed;
+            width: 100%;
+            bottom: 0;
+        }
+        @media (max-width: 768px) {
+            nav ul li {
+                display: block;
+                margin: 10px 0;
+            }
+            .container {
+                flex-direction: column;
+                align-items: center;
+            }
+            .profile, .content {
+                max-width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Andrej Karpathy</h1>
+        <p>AI Researcher and Educator</p>
+    </header>
+    <nav>
+        <ul>
+            <li><a href="#biography">Biography</a></li>
+            <li><a href="#career">Career</a></li>
+            <li><a href="#education">Education</a></li>
+            <li><a href="#publications">Publications</a></li>
+        </ul>
+    </nav>
+    <div class="container">
+        <div class="profile">
+            <img src="https://karpathy.ai/assets/me_new.jpg" alt="Andrej Karpathy">
+            <h2>Contact Information</h2>
+            <p>Email: andrej@karpathy.ai</p>
+            <p>Website: <a href="https://karpathy.ai" target="_blank">karpathy.ai</a></p>
+        </div>
+        <div class="content">
+            <section id="biography">
+                <h2>Biography</h2>
+                <p>Andrej Karpathy is a well-known Slovak-Canadian computer scientist. He was born on Oct. 23, 1986, in Bratislava, Czechoslovakia (now Slovakia) and immigrated to Toronto, Canada, at 15. He graduated from the University of Toronto with a Bachelor's in Computer Science and Physics in 2009 and later attended the University of British Columbia for his Master's in 2011, focusing on machine learning for agile robotics. Karpathy earned his PhD. from Stanford University, working with Fei-Fei Li, on the intersection of computer vision and natural language processing.</p>
+            </section>
+            <section id="career">
+                <h2>Career</h2>
+                <p>Karpathy became one of the original staff members at OpenAI in 2015 when he joined as a research scientist. He works at Tesla, where he focuses on artificial intelligence and leads a computer vision group for the company's Autopilot system. In 2023, he returned to OpenAI after a sabbatical to help enhance GPT-4 for ChatGPT. In July 2024, he launched Eureka Labs, which is an education platform integrated with AI to transform the way we learn through artificial intelligence.</p>
+            </section>
+            <section id="education">
+                <h2>Education</h2>
+                <p>Karpathy has focused on AI education in his career. He developed and taught one of the most popular classes at Stanford: CS 231n: Convolutional Neural Networks for Visual Recognition, Stanford’s first deep learning course. His teaching videos on neural networks have received wide acclaim testament to his passion for making complex AI concepts digestible.</p>
+            </section>
+            <section id="publications">
+                <h2>Publications</h2>
+                <ul>
+                    <li><a href="https://cs.stanford.edu/people/karpathy/" target="_blank">Connecting Images and Natural Language (PhD Thesis)</a></li>
+                    <li><a href="https://cs.stanford.edu/people/karpathy/" target="_blank">Deep Visual-Semantic Alignments for Generating Image Descriptions</a></li>
+                    <li><a href="https://cs.stanford.edu/people/karpathy/" target="_blank">Large-Scale Video Classification with Convolutional Neural Networks</a></li>
+                </ul>
+            </section>
+        </div>
+    </div>
+    <footer>
+        <p>&copy; 2025 Andrej Karpathy. All rights reserved.</p>
+    </footer>
+</body>
+</html>
+
