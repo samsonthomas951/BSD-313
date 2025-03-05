@@ -1,0 +1,643 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SonicWave - Gallery</title>
+    <style>
+        /* General Styles - REUSED FROM HOME PAGE */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #f8f9fa;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        a {
+            text-decoration: none;
+            color: #0066cc;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        /* Header Styles - REUSED FROM HOME PAGE */
+        header {
+            background: linear-gradient(135deg, #2c3e50, #1a1a2e);
+            color: white;
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .header-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 2rem;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo img {
+            height: 50px;
+            margin-right: 10px;
+        }
+
+        .logo h1 {
+            font-size: 1.8rem;
+            font-weight: 700;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+
+        .nav-links li {
+            margin-left: 2rem;
+        }
+
+        .nav-links a {
+            color: white;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: #00e6e6;
+            text-decoration: none;
+        }
+
+        .hamburger {
+            display: none;
+            cursor: pointer;
+        }
+
+        /* Gallery Hero Section - MODIFIED HERO */
+        .gallery-hero {
+            background: url('/api/placeholder/1200/600') no-repeat center center/cover; /* Replace with gallery hero image */
+            min-height: 60vh; /* Adjust hero height as needed */
+            display: flex;
+            align-items: center;
+            position: relative;
+        }
+
+        .gallery-hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+        }
+
+        .gallery-hero-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            position: relative;
+            z-index: 1;
+            color: white;
+            text-align: center; /* Center align hero text */
+        }
+
+        .gallery-hero h2 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            font-weight: 800;
+        }
+
+        .gallery-hero p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+
+        /* Gallery Section */
+        .gallery {
+            padding: 5rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title { /* REUSED SECTION TITLE */
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .section-title h2 { /* REUSED SECTION TITLE H2 */
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            color: #1a1a2e;
+        }
+
+        .section-title p { /* REUSED SECTION TITLE P */
+            color: #666;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* Adjust minmax for thumbnail size */
+            gap: 1.5rem;
+        }
+
+        .gallery-item {
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+            cursor: pointer; /* Indicate clickable image */
+        }
+
+        .gallery-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            display: block; /* Remove extra space below image */
+            object-fit: cover; /* Ensure images fill container and maintain aspect ratio */
+            aspect-ratio: 1/1; /* Make images square thumbnails */
+        }
+
+
+        /* Modal for Gallery Images - REUSED AND MODIFIED MODAL */
+        .gallery-modal {
+            display: none; /* Initially hidden */
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9); /* Darker background for gallery modal */
+            z-index: 1001; /* Higher z-index to be above other modals */
+            justify-content: center;
+            align-items: center;
+            overflow: auto; /* Enable scroll if image is too tall */
+        }
+
+        .gallery-modal-content {
+            background: transparent; /* Make modal content background transparent */
+            max-width: 90%; /* Limit image width */
+            max-height: 90%; /* Limit image height */
+            border-radius: 10px;
+            position: relative; /* For close button positioning */
+            animation: modalFadeIn 0.5s;
+        }
+
+        .gallery-modal-image {
+            display: block; /* Ensure image is block-level */
+            max-width: 100%; /* Image takes up modal width */
+            max-height: 100%; /* Image takes up modal height */
+            object-fit: contain; /* Fit image within modal bounds, preserving aspect ratio */
+        }
+
+
+        .gallery-close-modal {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            font-size: 2rem; /* Larger close button */
+            cursor: pointer;
+            color: white; /* White close button */
+            opacity: 0.8; /* Slightly transparent close button */
+            transition: opacity 0.3s;
+        }
+
+        .gallery-close-modal:hover {
+            opacity: 1;
+        }
+
+
+        @keyframes modalFadeIn { /* REUSED MODAL FADEIN ANIMATION */
+            from {
+                opacity: 0;
+                transform: translateY(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+
+        /* Newsletter Section - REUSED FROM HOME PAGE */
+        .newsletter {
+            background: linear-gradient(135deg, #1a1a2e, #2c3e50);
+            color: white;
+            padding: 4rem 2rem;
+            text-align: center;
+        }
+
+        .newsletter-container { /* REUSED NEWSLETTER CONTAINER */
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .newsletter h2 { /* REUSED NEWSLETTER H2 */
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .newsletter p { /* REUSED NEWSLETTER P */
+            margin-bottom: 2rem;
+            color: #ccc;
+        }
+
+        .newsletter-form { /* REUSED NEWSLETTER FORM */
+            display: flex;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        .newsletter-form input { /* REUSED NEWSLETTER FORM INPUT */
+            flex: 1;
+            padding: 0.8rem 1rem;
+            border: none;
+            border-radius: 50px 0 0 50px;
+            font-size: 1rem;
+            outline: none;
+        }
+
+        .newsletter-form button { /* REUSED NEWSLETTER FORM BUTTON */
+            background: linear-gradient(135deg, #00e6e6, #0066cc);
+            color: white;
+            border: none;
+            padding: 0 1.5rem;
+            border-radius: 0 50px 50px 0;
+            cursor: pointer;
+            font-weight: 600;
+            transition: background 0.3s;
+        }
+
+        .newsletter-form button:hover { /* REUSED NEWSLETTER FORM BUTTON HOVER */
+            background: linear-gradient(135deg, #00cccc, #0052a3);
+        }
+
+        /* Footer - REUSED FROM HOME PAGE */
+        footer {
+            background: #1a1a2e;
+            color: white;
+            padding: 3rem 2rem;
+        }
+
+        .footer-container { /* REUSED FOOTER CONTAINER */
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+        }
+
+        .footer-col h3 { /* REUSED FOOTER COL H3 */
+            font-size: 1.2rem;
+            margin-bottom: 1.5rem;
+            position: relative;
+            padding-bottom: 0.5rem;
+        }
+
+        .footer-col h3::after { /* REUSED FOOTER COL H3 AFTER */
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 2px;
+            background: #00e6e6;
+        }
+
+        .footer-col ul { /* REUSED FOOTER COL UL */
+            list-style: none;
+        }
+
+        .footer-col ul li { /* REUSED FOOTER COL UL LI */
+            margin-bottom: 0.8rem;
+        }
+
+        .footer-col ul li a { /* REUSED FOOTER COL UL LI A */
+            color: #ccc;
+            transition: color 0.3s;
+        }
+
+        .footer-col ul li a:hover { /* REUSED FOOTER COL UL LI A HOVER */
+            color: #00e6e6;
+            text-decoration: none;
+        }
+
+        .social-links { /* REUSED SOCIAL LINKS */
+            display: flex;
+            gap: 1rem;
+        }
+
+        .social-links a { /* REUSED SOCIAL LINKS A */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background: #2c3e50;
+            border-radius: 50%;
+            color: white;
+            transition: background 0.3s, transform 0.3s;
+        }
+
+        .social-links a:hover { /* REUSED SOCIAL LINKS A HOVER */
+            background: #00e6e6;
+            transform: translateY(-5px);
+        }
+
+        .copyright { /* REUSED COPYRIGHT */
+            text-align: center;
+            padding-top: 2rem;
+            margin-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: #999;
+            font-size: 0.9rem;
+        }
+
+
+        /* Responsive styles - REUSED FROM HOME PAGE */
+        @media (max-width: 768px) {
+            .header-container {
+                padding: 0 1rem;
+            }
+
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 80px;
+                left: 0;
+                width: 100%;
+                background: #1a1a2e;
+                flex-direction: column;
+                padding: 1rem 0;
+                text-align: center;
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .nav-links li {
+                margin: 0.5rem 0;
+            }
+
+            .hamburger {
+                display: block;
+            }
+
+            .gallery-hero h2 { /* Adjusted for gallery hero */
+                font-size: 2.5rem;
+            }
+             .gallery-hero p { /* Adjusted for gallery hero */
+                font-size: 1.1rem;
+            }
+
+            .gallery-grid { /* Adjust gallery grid on smaller screens if needed */
+                grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); /* Smaller thumbnails on mobile */
+            }
+
+
+            .newsletter-form {
+                flex-direction: column;
+            }
+
+            .newsletter-form input {
+                border-radius: 50px;
+                margin-bottom: 1rem;
+            }
+
+            .newsletter-form button {
+                border-radius: 50px;
+                padding: 0.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header Section - REUSED FROM HOME PAGE -->
+    <header>
+        <div class="header-container">
+            <div class="logo">
+                <img src="/api/placeholder/50/50" alt="SonicWave Logo">
+                <h1>SonicWave</h1>
+            </div>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="products.html">Products</a></li>
+                <li><a href="features.html">Features</a></li>
+                <li><a href="gallery.html" class="active">Gallery</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+            <div class="hamburger" id="hamburger">☰</div>
+        </div>
+    </header>
+
+    <!-- Gallery Hero Section -->
+    <section class="gallery-hero">
+        <div class="gallery-hero-content">
+            <h2>SonicWave Gallery</h2>
+            <p>Explore the world of SonicWave headphones through stunning visuals.</p>
+        </div>
+    </section>
+
+    <!-- Gallery Section -->
+    <section class="gallery">
+        <div class="section-title">
+            <h2>Product Showcase</h2>
+            <p>Immerse yourself in the design and detail of SonicWave headphones.</p>
+        </div>
+        <div class="gallery-grid" id="galleryGrid">
+            <div class="gallery-item" data-image="https://cdn-img.oraimo.com/fit-in/600x600/KE/product/2024/08/29/OTW-630.png">
+                <img src="https://cdn-img.oraimo.com/fit-in/600x600/KE/product/2024/08/29/OTW-630.png" alt="SonicWave Headphones Image 1"> <!-- Replace src with thumbnail URL -->
+            </div>
+            <div class="gallery-item" data-image="https://cdn-img.oraimo.com/fit-in/600x600/NG/product/2024/08/15/OTW-630-680-8x.jpg">
+                <img src="https://cdn-img.oraimo.com/fit-in/600x600/NG/product/2024/08/15/OTW-630-680-8x.jpg" alt="SonicWave Headphones Image 2"> <!-- Replace src with thumbnail URL -->
+            </div>
+            <div class="gallery-item" data-image="https://cdn-img.oraimo.com/fit-in/600x600/NG/product/2024/07/11/OTW-630-SpaceBuds-1.jpg">
+                <img src="https://cdn-img.oraimo.com/fit-in/600x600/NG/product/2024/07/11/OTW-630-SpaceBuds-1.jpg" alt="SonicWave Headphones Image 3"> <!-- Replace src with thumbnail URL -->
+            </div>
+            <div class="gallery-item" data-image="https://cdn-img.oraimo.com/fit-in/600x600/NG/product/2024/07/11/OTW-630-SpaceBuds-2.jpg"> 
+                <img src="https://cdn-img.oraimo.com/fit-in/600x600/NG/product/2024/07/11/OTW-630-SpaceBuds-2.jpg" alt="SonicWave Headphones Image 4"> <!-- Replace src with thumbnail URL -->
+            </div>
+            <div class="gallery-item" data-image="https://cdn-img.oraimo.com/fit-in/600x600/NG/product/2024/08/15/OTW-630-680-3x.jpg">
+                <img src="https://cdn-img.oraimo.com/fit-in/600x600/NG/product/2024/08/15/OTW-630-680-3x.jpg" alt="SonicWave Headphones Image 5"> <!-- Replace src with thumbnail URL -->
+            </div>
+            <div class="gallery-item" data-image="https://cdn-img.oraimo.com/fit-in/600x600/NG/product/2024/08/15/OTW-630-680-5x.jpg">
+                <img src="https://cdn-img.oraimo.com/fit-in/600x600/NG/product/2024/08/15/OTW-630-680-5x.jpg" alt="SonicWave Headphones Image 6"> <!-- Replace src with thumbnail URL -->
+            </div>
+             <!-- Add more gallery items here -->
+        </div>
+    </section>
+
+    <!-- Newsletter Section - REUSED FROM HOME PAGE -->
+    <section class="newsletter">
+        <div class="newsletter-container">
+            <h2>Stay Updated</h2>
+            <p>Subscribe to our newsletter to receive the latest news, product showcases, and behind-the-scenes content from SonicWave.</p>
+            <form class="newsletter-form" id="newsletterForm">
+                <input type="email" placeholder="Your email address" required id="emailInput">
+                <button type="submit">Subscribe</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Footer - REUSED FROM HOME PAGE -->
+    <footer>
+        <div class="footer-container">
+            <div class="footer-col">
+                <h3>SonicWave</h3>
+                <p>Premium headphones designed to deliver exceptional sound quality and comfort for music lovers and audio enthusiasts.</p>
+                <div class="social-links">
+                    <a href="#"><span>FB</span></a>
+                    <a href="#"><span>TW</span></a>
+                    <a href="#"><span>IG</span></a>
+                    <a href="#"><span>YT</span></a>
+                </div>
+            </div>
+            <div class="footer-col">
+                <h3>Products</h3>
+                <ul>
+                    <li><a href="products.html#over-ear">Over-Ear Headphones</a></li>
+                    <li><a href="products.html#earbuds">Wireless Earbuds</a></li>
+                    <li><a href="products.html#studio">Studio Headphones</a></li>
+                    <li><a href="products.html#accessories">Accessories</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h3>Support</h3>
+                <ul>
+                    <li><a href="#">FAQs</a></li>
+                    <li><a href="#">User Manuals</a></li>
+                    <li><a href="#">Warranty Information</a></li>
+                    <li><a href="contact.html">Contact Support</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h3>Company</h3>
+                <ul>
+                    <li><a href="#">About Us</a></li>
+                    <li><a href="#">Careers</a></li>
+                    <li><a href="#">Press Releases</a></li>
+                    <li><a href="#">Privacy Policy</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="copyright">
+            <p>© 2025 SonicWave. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Gallery Modal -->
+    <div class="gallery-modal" id="galleryModal">
+        <div class="gallery-modal-content">
+            <span class="gallery-close-modal" id="galleryCloseModal">×</span>
+            <img src="" alt="Full Size Image" class="gallery-modal-image" id="modalImage">
+        </div>
+    </div>
+
+    <!-- Modal - REUSED FROM HOME PAGE -->
+    <div class="modal" id="subscribeModal">
+        <div class="modal-content">
+            <span class="close-modal" id="closeModal">×</span>
+            <h3>Thank You for Subscribing!</h3>
+            <p>You have been added to our mailing list and will receive updates on our latest products and promotions.</p>
+        </div>
+    </div>
+
+    <!-- JavaScript - REUSED AND MODIFIED FROM HOME PAGE -->
+    <script>
+        // Handle mobile navigation - REUSED
+        const hamburger = document.getElementById('hamburger');
+        const navLinks = document.getElementById('navLinks');
+
+        hamburger.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+        });
+
+        // Handle newsletter subscription - REUSED
+        const newsletterForm = document.getElementById('newsletterForm');
+        const subscribeModal = document.getElementById('subscribeModal');
+        const closeModal = document.getElementById('closeModal');
+        const emailInput = document.getElementById('emailInput');
+
+        newsletterForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+
+            // Validate email (simple validation)
+            const email = emailInput.value;
+            if (!email || !email.includes('@') || !email.includes('.')) {
+                alert('Please enter a valid email address');
+                return;
+            }
+
+            // Show success modal
+            subscribeModal.style.display = 'flex';
+
+            // Clear the form
+            emailInput.value = '';
+        });
+
+        closeModal.addEventListener('click', () => {
+            subscribeModal.style.display = 'none';
+        });
+
+        // Close modal if clicking outside - REUSED
+        window.addEventListener('click', (e) => {
+            if (e.target === subscribeModal) {
+                subscribeModal.style.display = 'none';
+            }
+        });
+
+
+        // Gallery Functionality
+        const galleryGrid = document.getElementById('galleryGrid');
+        const galleryModal = document.getElementById('galleryModal');
+        const modalImage = document.getElementById('modalImage');
+        const galleryCloseModal = document.getElementById('galleryCloseModal');
+        const galleryItems = document.querySelectorAll('.gallery-item'); // Select all gallery items
+
+        galleryItems.forEach(item => {
+            item.addEventListener('click', () => {
+                modalImage.src = item.getAttribute('data-image'); // Get larger image URL from data-attribute
+                galleryModal.style.display = 'flex'; // Show gallery modal
+            });
+        });
+
+
+        galleryCloseModal.addEventListener('click', () => {
+            galleryModal.style.display = 'none'; // Hide gallery modal on close button click
+        });
+
+        window.addEventListener('click', (e) => {
+            if (e.target === galleryModal) {
+                galleryModal.style.display = 'none'; // Hide gallery modal if clicking outside the modal
+            }
+        });
+
+    </script>
+</body>
+</html>

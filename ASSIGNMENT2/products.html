@@ -1,0 +1,638 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SonicWave Premium Headphones - Product Page</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #f8f9fa;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        a {
+            text-decoration: none;
+            color: #0066cc;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        header {
+            background: linear-gradient(135deg, #2c3e50, #1a1a2e);
+            color: white;
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .header-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 2rem;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo img {
+            height: 50px;
+            margin-right: 10px;
+        }
+
+        .logo h1 {
+            font-size: 1.8rem;
+            font-weight: 700;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+
+        .nav-links li {
+            margin-left: 2rem;
+        }
+
+        .nav-links a {
+            color: white;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: #00e6e6;
+            text-decoration: none;
+        }
+
+        .hamburger {
+            display: none;
+            cursor: pointer;
+        }
+
+      
+        .product-hero {
+            background: url('/api/placeholder/1200/600') no-repeat center center/cover; 
+            min-height: 60vh; 
+            display: flex;
+            align-items: center;
+            position: relative;
+        }
+
+        .product-hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+        }
+
+        .product-hero-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            position: relative;
+            z-index: 1;
+            color: white;
+            text-align: center; 
+        }
+
+        .product-hero h2 {
+            font-size: 3rem; 
+            margin-bottom: 0.5rem;
+            font-weight: 800;
+        }
+
+        .product-hero h4 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            font-weight: 600;
+            color: #eee; 
+        }
+
+        
+        .product-details {
+            padding: 4rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: start;
+        }
+
+        .product-image-gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(100px, 1fr)); 
+            gap: 0.5rem;
+        }
+
+        .product-image-gallery img {
+            width: 100%;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+
+        .product-image-gallery img:hover {
+            transform: scale(1.05);
+        }
+
+        .main-product-image {
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .main-product-image img {
+            width: 100%;
+            display: block;
+        }
+
+
+        .product-info {
+            padding: 1.5rem;
+        }
+
+        .product-info h3 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            color: #1a1a2e;
+            font-weight: 700;
+        }
+
+        .product-info p {
+            color: #666;
+            margin-bottom: 1.5rem;
+        }
+
+        .price {
+            font-size: 2.2rem;
+            font-weight: bold;
+            color: #27ae60; 
+            margin-bottom: 1.5rem;
+        }
+
+        .cta-button-product {
+            display: inline-block;
+            background: linear-gradient(135deg, #00e6e6, #0066cc);
+            color: white;
+            padding: 1rem 2.5rem; 
+            border-radius: 50px;
+            font-weight: 600;
+            transition: transform 0.3s, box-shadow 0.3s;
+            font-size: 1.1rem;
+            border: none;
+            cursor: pointer;
+            text-align: center; 
+        }
+
+        .cta-button-product:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 0, 102, 0.2);
+            text-decoration: none;
+        }
+
+        .cta-button-product:focus {
+            outline: none; 
+        }
+
+        .product-features {
+            padding: 5rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title { 
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .section-title h2 { 
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            color: #1a1a2e;
+        }
+
+        .section-title p { 
+            color: #666;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .features-list {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .features-list li {
+            margin-bottom: 1rem;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+
+        .features-list li::before {
+            content: '✓'; 
+            position: absolute;
+            left: 0;
+            top: 0;
+            color: #27ae60; 
+            font-weight: bold;
+        }
+
+
+        .newsletter {
+            background: linear-gradient(135deg, #1a1a2e, #2c3e50);
+            color: white;
+            padding: 4rem 2rem;
+            text-align: center;
+        }
+
+        .newsletter-container { 
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .newsletter h2 { 
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .newsletter p { 
+            margin-bottom: 2rem;
+            color: #ccc;
+        }
+
+        .newsletter-form { 
+            display: flex;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        .newsletter-form input {
+            flex: 1;
+            padding: 0.8rem 1rem;
+            border: none;
+            border-radius: 50px 0 0 50px;
+            font-size: 1rem;
+            outline: none;
+        }
+
+        .newsletter-form button {
+            background: linear-gradient(135deg, #00e6e6, #0066cc);
+            color: white;
+            border: none;
+            padding: 0 1.5rem;
+            border-radius: 0 50px 50px 0;
+            cursor: pointer;
+            font-weight: 600;
+            transition: background 0.3s;
+        }
+
+        .newsletter-form button:hover { 
+            background: linear-gradient(135deg, #00cccc, #0052a3);
+        }
+
+        
+        footer {
+            background: #1a1a2e;
+            color: white;
+            padding: 3rem 2rem;
+        }
+
+        .footer-container { 
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+        }
+
+        .footer-col h3 {
+            font-size: 1.2rem;
+            margin-bottom: 1.5rem;
+            position: relative;
+            padding-bottom: 0.5rem;
+        }
+
+        .footer-col h3::after { 
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 2px;
+            background: #00e6e6;
+        }
+
+        .footer-col ul {
+            list-style: none;
+        }
+
+        .footer-col ul li { 
+            margin-bottom: 0.8rem;
+        }
+
+        .footer-col ul li a {
+            color: #ccc;
+            transition: color 0.3s;
+        }
+
+        .footer-col ul li a:hover { 
+            color: #00e6e6;
+            text-decoration: none;
+        }
+
+        .social-links { 
+            display: flex;
+            gap: 1rem;
+        }
+
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background: #2c3e50;
+            border-radius: 50%;
+            color: white;
+            transition: background 0.3s, transform 0.3s;
+        }
+
+        .social-links a:hover { 
+            background: #00e6e6;
+            transform: translateY(-5px);
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 2rem;
+            margin-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: #999;
+            font-size: 0.9rem;
+        }
+
+
+        @media (max-width: 768px) {
+            .header-container {
+                padding: 0 1rem;
+            }
+
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 80px;
+                left: 0;
+                width: 100%;
+                background: #1a1a2e;
+                flex-direction: column;
+                padding: 1rem 0;
+                text-align: center;
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .nav-links li {
+                margin: 0.5rem 0;
+            }
+
+            .hamburger {
+                display: block;
+            }
+
+            .product-hero h2 { 
+                font-size: 2rem;
+            }
+            .product-hero h4 { 
+                font-size: 1.2rem;
+            }
+
+            .product-details { 
+                grid-template-columns: 1fr;
+            }
+
+            .newsletter-form {
+                flex-direction: column;
+            }
+
+            .newsletter-form input {
+                border-radius: 50px;
+                margin-bottom: 1rem;
+            }
+
+            .newsletter-form button {
+                border-radius: 50px;
+                padding: 0.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-container">
+            <div class="logo">
+                <img src="/api/placeholder/50/50" alt="SonicWave Logo">
+                <h1>SonicWave</h1>
+            </div>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="products.html" class="active">Products</a></li>
+                <li><a href="features.html">Features</a></li>
+                <li><a href="gallery.html">Gallery</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+            <div class="hamburger" id="hamburger">☰</div>
+        </div>
+    </header>
+
+    <section class="product-hero">
+        <div class="product-hero-content">
+            <h2>SonicWave X9000</h2>
+            <h4>Premium Over-Ear Noise Cancelling Headphones</h4>
+        </div>
+    </section>
+
+    <section class="product-details">
+        <div class="main-product-image">
+            <img src="https://cdn-img.oraimo.com/fit-in/600x600/KE/product/2024/08/29/OTW-630.png" alt="SonicWave X9000 Headphones">
+        </div>
+        <div class="product-info">
+            <h3>SonicWave X9000 - Immersive Sound, Ultimate Comfort</h3>
+            <p>Experience audio redefined with the SonicWave X9000. These premium over-ear headphones are engineered for exceptional sound quality, superior comfort, and powerful noise cancellation, making them your perfect audio companion.</p>
+
+            <div class="price">Ksh. 4500</div>
+
+            <button class="cta-button-product">Add to Cart</button>
+
+            <div class="product-image-gallery">
+                <img src="https://cdn-img.oraimo.com/fit-in/600x600/NG/product/2024/08/15/OTW-630-680-8x.jpg" alt="SonicWave X9000 Side View">
+                <img src="https://cdn-img.oraimo.com/fit-in/600x600/NG/product/2024/08/15/OTW-630-680-6x.jpg" alt="SonicWave X9000 Detail">
+                <img src="https://cdn-img.oraimo.com/fit-in/600x600/NG/product/2024/08/15/OTW-630-680-7x.jpg" alt="SonicWave X9000 Wearing">
+                <img src="https://cdn-img.oraimo.com/fit-in/600x600/NG/product/2024/07/11/OTW-630-SpaceBuds-2.jpg" alt="SonicWave X9000 Controls">
+            </div>
+        </div>
+    </section>
+
+
+    <section class="product-features">
+        <div class="section-title">
+            <h2>Key Features</h2>
+            <p>Discover what makes the SonicWave X9000 stand out.</p>
+        </div>
+        <ul class="features-list">
+            <li><b>Crystal-Clear Audio:</b> High-fidelity drivers deliver rich, detailed sound across the entire frequency range.</li>
+            <li><b>Advanced Noise Cancellation:</b> Effectively blocks out distractions, allowing you to focus on your audio.</li>
+            <li><b>Supreme Comfort:</b> Plush earcups and adjustable headband for hours of comfortable listening.</li>
+            <li><b>Long-Lasting Battery:</b> Enjoy up to 30 hours of playtime on a single charge.</li>
+            <li><b>Bluetooth 5.0:</b> Stable and efficient wireless connection for seamless streaming.</li>
+            <li><b>Built-in Microphone:</b> For clear calls and voice assistant access.</li>
+            <li><b>Durable Construction:</b> Premium materials ensure long-lasting performance and style.</li>
+        </ul>
+    </section>
+
+    <section class="newsletter">
+        <div class="newsletter-container">
+            <h2>Stay Updated</h2>
+            <p>Subscribe to our newsletter to receive the latest news, product updates, and exclusive offers on SonicWave products.</p>
+            <form class="newsletter-form" id="newsletterForm">
+                <input type="email" placeholder="Your email address" required id="emailInput">
+                <button type="submit">Subscribe</button>
+            </form>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-container">
+            <div class="footer-col">
+                <h3>SonicWave</h3>
+                <p>Premium headphones designed to deliver exceptional sound quality and comfort for music lovers and audio enthusiasts.</p>
+                <div class="social-links">
+                    <a href="#"><span>FB</span></a>
+                    <a href="#"><span>TW</span></a>
+                    <a href="#"><span>IG</span></a>
+                    <a href="#"><span>YT</span></a>
+                </div>
+            </div>
+            <div class="footer-col">
+                <h3>Products</h3>
+                <ul>
+                    <li><a href="products.html#over-ear">Over-Ear Headphones</a></li>
+                    <li><a href="products.html#earbuds">Wireless Earbuds</a></li>
+                    <li><a href="products.html#studio">Studio Headphones</a></li>
+                    <li><a href="products.html#accessories">Accessories</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h3>Support</h3>
+                <ul>
+                    <li><a href="#">FAQs</a></li>
+                    <li><a href="#">User Manuals</a></li>
+                    <li><a href="#">Warranty Information</a></li>
+                    <li><a href="contact.html">Contact Support</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h3>Company</h3>
+                <ul>
+                    <li><a href="#">About Us</a></li>
+                    <li><a href="#">Careers</a></li>
+                    <li><a href="#">Press Releases</a></li>
+                    <li><a href="#">Privacy Policy</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="copyright">
+            <p>© 2025 SonicWave. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Handle mobile navigation - REUSED
+        const hamburger = document.getElementById('hamburger');
+        const navLinks = document.getElementById('navLinks');
+
+        hamburger.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+        });
+
+        // Handle newsletter subscription - REUSED
+        const newsletterForm = document.getElementById('newsletterForm');
+        const subscribeModal = document.getElementById('subscribeModal');
+        const closeModal = document.getElementById('closeModal');
+        const emailInput = document.getElementById('emailInput');
+
+        newsletterForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+
+            // Validate email (simple validation)
+            const email = emailInput.value;
+            if (!email || !email.includes('@') || !email.includes('.')) {
+                alert('Please enter a valid email address');
+                return;
+            }
+
+            // Show success modal
+            subscribeModal.style.display = 'flex';
+
+            // Clear the form
+            emailInput.value = '';
+        });
+
+        closeModal.addEventListener('click', () => {
+            subscribeModal.style.display = 'none';
+        });
+
+        // Close modal if clicking outside - REUSED
+        window.addEventListener('click', (e) => {
+            if (e.target === subscribeModal) {
+                subscribeModal.style.display = 'none';
+            }
+        });
+
+        // Add smooth scrolling - REUSED (might not be needed on a single product page, but kept for consistency)
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Image gallery functionality
+        const mainProductImage = document.querySelector('.main-product-image img');
+        const galleryImages = document.querySelectorAll('.product-image-gallery img');
+
+        galleryImages.forEach(img => {
+            img.addEventListener('click', () => {
+                mainProductImage.src = img.src;
+            });
+        });
+
+
+    </script>
+</body>
+</html>

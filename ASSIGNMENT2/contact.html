@@ -1,0 +1,640 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SonicWave - Contact Us</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #f8f9fa;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        a {
+            text-decoration: none;
+            color: #0066cc;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        header {
+            background: linear-gradient(135deg, #2c3e50, #1a1a2e);
+            color: white;
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .header-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 2rem;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo img {
+            height: 50px;
+            margin-right: 10px;
+        }
+
+        .logo h1 {
+            font-size: 1.8rem;
+            font-weight: 700;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+
+        .nav-links li {
+            margin-left: 2rem;
+        }
+
+        .nav-links a {
+            color: white;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: #00e6e6;
+            text-decoration: none;
+        }
+
+        .hamburger {
+            display: none;
+            cursor: pointer;
+        }
+
+        .contact-hero {
+            background: url('https://cdn-img.oraimo.com/fit-in/600x600/NG/product/2024/08/15/OTW-630-680-8x.jpg') no-repeat center center/cover; /* Replace with contact hero image */
+            min-height: 80vh;
+            display: flex;
+            align-items: center;
+            position: relative;
+        }
+
+        .contact-hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+        }
+
+        .contact-hero-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            position: relative;
+            z-index: 1;
+            color: white;
+            text-align: center;
+        }
+
+        .contact-hero h2 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            font-weight: 800;
+        }
+
+        .contact-hero p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .contact-form-section {
+            padding: 5rem 2rem;
+            max-width: 900px; /* Reduced max-width for form section */
+            margin: 0 auto;
+        }
+
+        .section-title { 
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .section-title h2 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            color: #1a1a2e;
+        }
+
+        .section-title p { 
+            color: #666;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .contact-form {
+            display: grid;
+            grid-gap: 20px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-group label {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: #444;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            padding: 0.8rem 1rem;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 1rem;
+            font-family: inherit;
+            outline: none;
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 150px;
+        }
+
+        .submit-button {
+            background: linear-gradient(135deg, #00e6e6, #0066cc);
+            color: white;
+            border: none;
+            padding: 0.8rem 2rem;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: background 0.3s, transform 0.3s;
+        }
+
+        .submit-button:hover {
+            background: linear-gradient(135deg, #00cccc, #0052a3);
+            transform: translateY(-2px);
+        }
+
+        .submit-button:focus {
+            outline: none;
+            box-shadow: 0 0 0 2px rgba(0, 102, 204, 0.5); 
+        }
+
+
+        .contact-info-section {
+            padding: 3rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            background-color: #f0f0f0; 
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+        }
+
+        .contact-info-section .section-title {
+            margin-bottom: 2rem; 
+        }
+
+        .contact-info-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1rem;
+        }
+
+        .contact-info-table th,
+        .contact-info-table td {
+            padding: 0.8rem;
+            text-align: left;
+            border-bottom: 1px solid #ddd; 
+        }
+
+        .contact-info-table th {
+            font-weight: bold;
+            width: 30%;
+            color: #555;
+        }
+
+        .contact-info-table td {
+            color: #666;
+        }
+
+        .contact-info-table tr:last-child td,
+        .contact-info-table tr:last-child th {
+            border-bottom: none; 
+        }
+
+        .newsletter {
+            background: linear-gradient(135deg, #1a1a2e, #2c3e50);
+            color: white;
+            padding: 4rem 2rem;
+            text-align: center;
+        }
+
+        .newsletter-container { 
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .newsletter h2 { 
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .newsletter p { 
+            margin-bottom: 2rem;
+            color: #ccc;
+        }
+
+        .newsletter-form { 
+            display: flex;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        .newsletter-form input { 
+            flex: 1;
+            padding: 0.8rem 1rem;
+            border: none;
+            border-radius: 50px 0 0 50px;
+            font-size: 1rem;
+            outline: none;
+        }
+
+        .newsletter-form button {
+            background: linear-gradient(135deg, #00e6e6, #0066cc);
+            color: white;
+            border: none;
+            padding: 0 1.5rem;
+            border-radius: 0 50px 50px 0;
+            cursor: pointer;
+            font-weight: 600;
+            transition: background 0.3s;
+        }
+
+        .newsletter-form button:hover {
+            background: linear-gradient(135deg, #00cccc, #0052a3);
+        }
+
+        footer {
+            background: #1a1a2e;
+            color: white;
+            padding: 3rem 2rem;
+        }
+
+        .footer-container { 
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+        }
+
+        .footer-col h3 { 
+            font-size: 1.2rem;
+            margin-bottom: 1.5rem;
+            position: relative;
+            padding-bottom: 0.5rem;
+        }
+
+        .footer-col h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 2px;
+            background: #00e6e6;
+        }
+
+        .footer-col ul { 
+            list-style: none;
+        }
+
+        .footer-col ul li { 
+            margin-bottom: 0.8rem;
+        }
+
+        .footer-col ul li a { 
+            color: #ccc;
+            transition: color 0.3s;
+        }
+
+        .footer-col ul li a:hover { 
+            color: #00e6e6;
+            text-decoration: none;
+        }
+
+        .social-links { 
+            display: flex;
+            gap: 1rem;
+        }
+
+        .social-links a { 
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background: #2c3e50;
+            border-radius: 50%;
+            color: white;
+            transition: background 0.3s, transform 0.3s;
+        }
+
+        .social-links a:hover { 
+            background: #00e6e6;
+            transform: translateY(-5px);
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 2rem;
+            margin-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: #999;
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 768px) {
+            .header-container {
+                padding: 0 1rem;
+            }
+
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 80px;
+                left: 0;
+                width: 100%;
+                background: #1a1a2e;
+                flex-direction: column;
+                padding: 1rem 0;
+                text-align: center;
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .nav-links li {
+                margin: 0.5rem 0;
+            }
+
+            .hamburger {
+                display: block;
+            }
+
+            .contact-hero h2 {
+                font-size: 2.5rem;
+            }
+             .contact-hero p { 
+                font-size: 1.1rem;
+            }
+
+            .contact-form-section {
+                padding: 3rem 1rem;
+            }
+
+            .contact-info-section {
+                padding: 2rem 1rem;
+            }
+
+            .contact-info-table th,
+            .contact-info-table td {
+                padding: 0.6rem; 
+                font-size: 0.9rem;
+            }
+
+
+            .newsletter-form {
+                flex-direction: column;
+            }
+
+            .newsletter-form input {
+                border-radius: 50px;
+                margin-bottom: 1rem;
+            }
+
+            .newsletter-form button {
+                border-radius: 50px;
+                padding: 0.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    
+    <header>
+        <div class="header-container">
+            <div class="logo">
+                <img src="/api/placeholder/50/50" alt="SonicWave Logo">
+                <h1>SonicWave</h1>
+            </div>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="products.html">Products</a></li>
+                <li><a href="features.html">Features</a></li>
+                <li><a href="gallery.html">Gallery</a></li>
+                <li><a href="contact.html" class="active">Contact</a></li>
+            </ul>
+            <div class="hamburger" id="hamburger">☰</div>
+        </div>
+    </header>
+
+    
+    <section class="contact-hero">
+        <div class="contact-hero-content">
+            <h2>Get in Touch with SonicWave</h2>
+            <p>We're here to help! Contact us for any inquiries, support, or feedback.</p>
+        </div>
+    </section>
+
+    <section class="contact-form-section">
+        <div class="section-title">
+            <h2>Send Us a Message</h2>
+            <p>Please fill out the form below and we'll get back to you as soon as possible.</p>
+        </div>
+        <form class="contact-form" id="contactForm">
+            <div class="form-group">
+                <label for="name">Your Name</label>
+                <input type="text" id="name" name="name" placeholder="Your Name" required>
+            </div>
+            <div class="form-group">
+                <label for="email">Your Email</label>
+                <input type="email" id="email" name="email" placeholder="Your Email" required>
+            </div>
+            <div class="form-group">
+                <label for="subject">Subject</label>
+                <input type="text" id="subject" name="subject" placeholder="Subject">
+            </div>
+            <div class="form-group">
+                <label for="message">Message</label>
+                <textarea id="message" name="message" placeholder="Your Message" required></textarea>
+            </div>
+            <button type="submit" class="submit-button">Send Message</button>
+        </form>
+    </section>
+
+    <section class="contact-info-section">
+        <div class="section-title">
+            <h2>Contact Information</h2>
+            <p>Alternatively, you can reach us directly through the following channels.</p>
+        </div>
+        <table class="contact-info-table">
+            <tbody>
+                <tr>
+                    <th>Customer Support</th>
+                    <td><a href="mailto:support@sonicwaveheadphones.com">support@sonicwaveheadphones.com</a></td>
+                </tr>
+                <tr>
+                    <th>Sales Inquiries</th>
+                    <td><a href="mailto:sales@sonicwaveheadphones.com">sales@sonicwaveheadphones.com</a></td>
+                </tr>
+                <tr>
+                    <th>Phone</th>
+                    <td>+1-800-SONICWAVE (+1-800-766429283)</td>
+                </tr>
+                <tr>
+                    <th>Address</th>
+                    <td>123 Audio Lane, Sound City, USA</td>
+                </tr>
+                <tr>
+                    <th>Business Hours</th>
+                    <td>Monday - Friday: 9am - 6pm PST</td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
+
+
+    <section class="newsletter">
+        <div class="newsletter-container">
+            <h2>Stay Updated</h2>
+            <p>Subscribe to our newsletter to receive the latest news, updates, and special offers from SonicWave.</p>
+            <form class="newsletter-form" id="newsletterForm">
+                <input type="email" placeholder="Your email address" required id="emailInput">
+                <button type="submit">Subscribe</button>
+            </form>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-container">
+            <div class="footer-col">
+                <h3>SonicWave</h3>
+                <p>Premium headphones designed to deliver exceptional sound quality and comfort for music lovers and audio enthusiasts.</p>
+                <div class="social-links">
+                    <a href="#"><span>FB</span></a>
+                    <a href="#"><span>TW</span></a>
+                    <a href="#"><span>IG</span></a>
+                    <a href="#"><span>YT</span></a>
+                </div>
+            </div>
+            <div class="footer-col">
+                <h3>Products</h3>
+                <ul>
+                    <li><a href="products.html#over-ear">Over-Ear Headphones</a></li>
+                    <li><a href="products.html#earbuds">Wireless Earbuds</a></li>
+                    <li><a href="products.html#studio">Studio Headphones</a></li>
+                    <li><a href="products.html#accessories">Accessories</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h3>Support</h3>
+                <ul>
+                    <li><a href="#">FAQs</a></li>
+                    <li><a href="#">User Manuals</a></li>
+                    <li><a href="#">Warranty Information</a></li>
+                    <li><a href="contact.html">Contact Support</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h3>Company</h3>
+                <ul>
+                    <li><a href="#">About Us</a></li>
+                    <li><a href="#">Careers</a></li>
+                    <li><a href="#">Press Releases</a></li>
+                    <li><a href="#">Privacy Policy</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="copyright">
+            <p>© 2025 SonicWave. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <div class="modal" id="subscribeModal">
+        <div class="modal-content">
+            <span class="close-modal" id="closeModal">×</span>
+            <h3>Thank You for Subscribing!</h3>
+            <p>You have been added to our mailing list and will receive updates on our latest products and promotions.</p>
+        </div>
+    </div>
+    <script>
+        // Handle mobile navigation
+        const hamburger = document.getElementById('hamburger');
+        const navLinks = document.getElementById('navLinks');
+
+        hamburger.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+        });
+
+        // Handle newsletter subscription
+        const newsletterForm = document.getElementById('newsletterForm');
+        const subscribeModal = document.getElementById('subscribeModal');
+        const closeModal = document.getElementById('closeModal');
+        const emailInput = document.getElementById('emailInput');
+
+        newsletterForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+
+            // Validate email (simple validation)
+            const email = emailInput.value;
+            if (!email || !email.includes('@') || !email.includes('.')) {
+                alert('Please enter a valid email address');
+                return;
+            }
+
+            // Show success modal
+            subscribeModal.style.display = 'flex';
+
+            // Clear the form
+            emailInput.value = '';
+        });
+
+        closeModal.addEventListener('click', () => {
+            subscribeModal.style.display = 'none';
+        });
+
+        // Close modal if clicking outside
+        window.addEventListener('click', (e) => {
+            if (e.target === subscribeModal) {
+                subscribeModal.style.display = 'none';
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,614 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SonicWave - Features</title>
+    <style>
+        /* General Styles - REUSED FROM HOME PAGE */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #f8f9fa;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        a {
+            text-decoration: none;
+            color: #0066cc;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        /* Header Styles - REUSED FROM HOME PAGE */
+        header {
+            background: linear-gradient(135deg, #2c3e50, #1a1a2e);
+            color: white;
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .header-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 2rem;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo img {
+            height: 50px;
+            margin-right: 10px;
+        }
+
+        .logo h1 {
+            font-size: 1.8rem;
+            font-weight: 700;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+
+        .nav-links li {
+            margin-left: 2rem;
+        }
+
+        .nav-links a {
+            color: white;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: #00e6e6;
+            text-decoration: none;
+        }
+
+        .hamburger {
+            display: none;
+            cursor: pointer;
+        }
+
+        /* Features Hero Section - MODIFIED HERO */
+        .features-hero {
+            background: url('/api/placeholder/1200/600') no-repeat center center/cover; /* Replace with features image */
+            min-height: 70vh; /* Adjust hero height as needed */
+            display: flex;
+            align-items: center;
+            position: relative;
+        }
+
+        .features-hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+        }
+
+        .features-hero-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            position: relative;
+            z-index: 1;
+            color: white;
+            text-align: center; /* Center align hero text */
+        }
+
+        .features-hero h2 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            font-weight: 800;
+        }
+
+        .features-hero p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+
+        /* Feature Details Section - MODIFIED FEATURES SECTION */
+        .feature-details {
+            padding: 5rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title { /* REUSED SECTION TITLE */
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .section-title h2 { /* REUSED SECTION TITLE H2 */
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            color: #1a1a2e;
+        }
+
+        .section-title p { /* REUSED SECTION TITLE P */
+            color: #666;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .feature-detail-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); /* Adjusted minmax for feature details */
+            gap: 3rem;
+        }
+
+        .feature-detail-card {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+            padding: 2rem; /* Added padding for content spacing */
+        }
+
+        .feature-detail-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+        }
+
+        .feature-detail-img {
+            margin-bottom: 1.5rem;
+            border-radius: 8px;
+            overflow: hidden;
+            max-height: 250px; /* Limit image height */
+        }
+
+        .feature-detail-img img {
+            width: 100%;
+            height: auto; /* Maintain aspect ratio */
+            display: block; /* Remove extra space below image */
+            object-fit: cover; /* Ensure images fill container and maintain aspect ratio */
+        }
+
+
+        .feature-detail-content h3 {
+            font-size: 1.8rem; /* Slightly larger feature title */
+            margin-bottom: 1rem;
+            color: #1a1a2e;
+        }
+
+        .feature-detail-content p {
+            color: #666;
+            margin-bottom: 1.5rem; /* Increased margin for text */
+            line-height: 1.7; /* Improved readability */
+        }
+
+
+        /* Newsletter Section - REUSED FROM HOME PAGE */
+        .newsletter {
+            background: linear-gradient(135deg, #1a1a2e, #2c3e50);
+            color: white;
+            padding: 4rem 2rem;
+            text-align: center;
+        }
+
+        .newsletter-container { /* REUSED NEWSLETTER CONTAINER */
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .newsletter h2 { /* REUSED NEWSLETTER H2 */
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .newsletter p { /* REUSED NEWSLETTER P */
+            margin-bottom: 2rem;
+            color: #ccc;
+        }
+
+        .newsletter-form { /* REUSED NEWSLETTER FORM */
+            display: flex;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        .newsletter-form input { /* REUSED NEWSLETTER FORM INPUT */
+            flex: 1;
+            padding: 0.8rem 1rem;
+            border: none;
+            border-radius: 50px 0 0 50px;
+            font-size: 1rem;
+            outline: none;
+        }
+
+        .newsletter-form button { /* REUSED NEWSLETTER FORM BUTTON */
+            background: linear-gradient(135deg, #00e6e6, #0066cc);
+            color: white;
+            border: none;
+            padding: 0 1.5rem;
+            border-radius: 0 50px 50px 0;
+            cursor: pointer;
+            font-weight: 600;
+            transition: background 0.3s;
+        }
+
+        .newsletter-form button:hover { /* REUSED NEWSLETTER FORM BUTTON HOVER */
+            background: linear-gradient(135deg, #00cccc, #0052a3);
+        }
+
+        /* Footer - REUSED FROM HOME PAGE */
+        footer {
+            background: #1a1a2e;
+            color: white;
+            padding: 3rem 2rem;
+        }
+
+        .footer-container { /* REUSED FOOTER CONTAINER */
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+        }
+
+        .footer-col h3 { /* REUSED FOOTER COL H3 */
+            font-size: 1.2rem;
+            margin-bottom: 1.5rem;
+            position: relative;
+            padding-bottom: 0.5rem;
+        }
+
+        .footer-col h3::after { /* REUSED FOOTER COL H3 AFTER */
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 2px;
+            background: #00e6e6;
+        }
+
+        .footer-col ul { /* REUSED FOOTER COL UL */
+            list-style: none;
+        }
+
+        .footer-col ul li { /* REUSED FOOTER COL UL LI */
+            margin-bottom: 0.8rem;
+        }
+
+        .footer-col ul li a { /* REUSED FOOTER COL UL LI A */
+            color: #ccc;
+            transition: color 0.3s;
+        }
+
+        .footer-col ul li a:hover { /* REUSED FOOTER COL UL LI A HOVER */
+            color: #00e6e6;
+            text-decoration: none;
+        }
+
+        .social-links { /* REUSED SOCIAL LINKS */
+            display: flex;
+            gap: 1rem;
+        }
+
+        .social-links a { /* REUSED SOCIAL LINKS A */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background: #2c3e50;
+            border-radius: 50%;
+            color: white;
+            transition: background 0.3s, transform 0.3s;
+        }
+
+        .social-links a:hover { /* REUSED SOCIAL LINKS A HOVER */
+            background: #00e6e6;
+            transform: translateY(-5px);
+        }
+
+        .copyright { /* REUSED COPYRIGHT */
+            text-align: center;
+            padding-top: 2rem;
+            margin-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: #999;
+            font-size: 0.9rem;
+        }
+
+
+        /* Responsive styles - REUSED FROM HOME PAGE */
+        @media (max-width: 768px) {
+            .header-container {
+                padding: 0 1rem;
+            }
+
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 80px;
+                left: 0;
+                width: 100%;
+                background: #1a1a2e;
+                flex-direction: column;
+                padding: 1rem 0;
+                text-align: center;
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .nav-links li {
+                margin: 0.5rem 0;
+            }
+
+            .hamburger {
+                display: block;
+            }
+
+            .features-hero h2 { /* Adjusted for features hero */
+                font-size: 2.5rem;
+            }
+             .features-hero p { /* Adjusted for features hero */
+                font-size: 1.1rem;
+            }
+
+            .feature-detail-grid { /* Stack feature details on smaller screens */
+                grid-template-columns: 1fr;
+            }
+
+
+            .newsletter-form {
+                flex-direction: column;
+            }
+
+            .newsletter-form input {
+                border-radius: 50px;
+                margin-bottom: 1rem;
+            }
+
+            .newsletter-form button {
+                border-radius: 50px;
+                padding: 0.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header Section - REUSED FROM HOME PAGE -->
+    <header>
+        <div class="header-container">
+            <div class="logo">
+                <img src="/api/placeholder/50/50" alt="SonicWave Logo">
+                <h1>SonicWave</h1>
+            </div>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="products.html">Products</a></li>
+                <li><a href="features.html" class="active">Features</a></li>
+                <li><a href="gallery.html">Gallery</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+            <div class="hamburger" id="hamburger">☰</div>
+        </div>
+    </header>
+
+    <!-- Features Hero Section -->
+    <section class="features-hero">
+        <div class="features-hero-content">
+            <h2>Engineered for Excellence</h2>
+            <p>Explore the cutting-edge features that make SonicWave headphones the ultimate audio experience.</p>
+        </div>
+    </section>
+
+    <!-- Feature Details Section -->
+    <section class="feature-details">
+        <div class="section-title">
+            <h2>Unleashing the Power of Sound</h2>
+            <p>Dive deeper into the technology and design behind SonicWave's exceptional performance.</p>
+        </div>
+        <div class="feature-detail-grid">
+            <div class="feature-detail-card" id="sound">
+                <div class="feature-detail-img">
+                    <img src="https://cdn-img.oraimo.com/fit-in/600x600/NG/product/2024/08/15/OTW-630-680-6x.jpg" alt="Premium Sound Quality Feature">
+                </div>
+                <div class="feature-detail-content">
+                    <h3>Premium Sound Quality</h3>
+                    <p>Experience audio fidelity like never before. Our headphones are equipped with custom-tuned drivers and advanced acoustic engineering to deliver crystal-clear highs, rich midranges, and deep, resonant bass. Hear every nuance of your favorite music, podcasts, and audiobooks with stunning clarity and precision.</p>
+                </div>
+            </div>
+            <div class="feature-detail-card" id="anc">
+                <div class="feature-detail-img">
+                    <img src="https://cdn-img.oraimo.com/fit-in/600x600/NG/product/2024/08/15/OTW-630-680-5x.jpg" alt="Active Noise Cancellation Feature">
+                </div>
+                <div class="feature-detail-content">
+                    <h3>Active Noise Cancellation (ANC)</h3>
+                    <p>Escape into your soundscape and silence the world around you. Our state-of-the-art Active Noise Cancellation technology effectively eliminates distractions, from the rumble of city traffic to the drone of airplane engines. Immerse yourself fully in your audio, whether you're commuting, working, or simply relaxing at home.</p>
+                </div>
+            </div>
+            <div class="feature-detail-card" id="comfort">
+                <div class="feature-detail-img">
+                    <img src="https://cdn-img.oraimo.com/fit-in/600x600/NG/product/2024/08/15/OTW-630-680-10x.jpg" alt="Supreme Comfort and Design Feature">
+                </div>
+                <div class="feature-detail-content">
+                    <h3>Supreme Comfort and Ergonomic Design</h3>
+                    <p>Designed for extended listening sessions, SonicWave headphones prioritize comfort without compromising on style. Plush, breathable earcups gently cradle your ears, while the adjustable, lightweight headband ensures a perfect fit. Enjoy hours of fatigue-free listening, wrapped in premium materials and sophisticated design.</p>
+                </div>
+            </div>
+            <div class="feature-detail-card" id="battery">
+                <div class="feature-detail-img">
+                    <img src="https://cdn-img.oraimo.com/fit-in/600x600/NG/product/2024/08/15/20240815-19520922.jpg" alt="Long-lasting Battery Life Feature">
+                </div>
+                <div class="feature-detail-content">
+                    <h3>Extended Battery Life</h3>
+                    <p>Power through your day and beyond with SonicWave's exceptional battery performance. Enjoy up to 30 hours of playtime on a single charge, ensuring your music keeps going as long as you do.  And with quick charging capabilities, a short power-up provides hours of additional listening time, so you're never without your soundtrack.</p>
+                </div>
+            </div>
+            <div class="feature-detail-card" id="bluetooth">
+                <div class="feature-detail-img">
+                    <img src="https://cdn-img.oraimo.com/fit-in/600x600/NG/product/2024/08/15/OTW-630-680-14x.jpg" alt="Bluetooth 5.0 Connectivity Feature">
+                </div>
+                <div class="feature-detail-content">
+                    <h3>Seamless Bluetooth 5.4 Connectivity</h3>
+                    <p>Experience rock-solid wireless connection with Bluetooth 5.0. Enjoy faster pairing, increased range, and more stable audio streaming.  Bluetooth 5.0 provides efficient power consumption, contributing to the extended battery life, and ensures a seamless and reliable connection with your devices.</p>
+                </div>
+            </div>
+            <div class="feature-detail-card" id="microphone">
+                <div class="feature-detail-img">
+                    <img src="https://cdn-img.oraimo.com/fit-in/600x600/NG/product/2024/08/15/OTW-630-680-13x.jpg" alt="Built-in Microphone Feature">
+                </div>
+                <div class="feature-detail-content">
+                    <h3>Integrated Microphone for Calls and Voice Assistants</h3>
+                    <p>Stay connected effortlessly. The built-in high-quality microphone allows for crystal-clear hands-free calls and seamless interaction with voice assistants like Siri or Google Assistant. Manage calls, control your music, and get information without taking off your headphones, all with exceptional clarity.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- Newsletter Section - REUSED FROM HOME PAGE -->
+    <section class="newsletter">
+        <div class="newsletter-container">
+            <h2>Stay Updated</h2>
+            <p>Subscribe to our newsletter to receive the latest news, product updates, and exclusive insights into SonicWave technology.</p>
+            <form class="newsletter-form" id="newsletterForm">
+                <input type="email" placeholder="Your email address" required id="emailInput">
+                <button type="submit">Subscribe</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Footer - REUSED FROM HOME PAGE -->
+    <footer>
+        <div class="footer-container">
+            <div class="footer-col">
+                <h3>SonicWave</h3>
+                <p>Premium headphones designed to deliver exceptional sound quality and comfort for music lovers and audio enthusiasts.</p>
+                <div class="social-links">
+                    <a href="#"><span>FB</span></a>
+                    <a href="#"><span>TW</span></a>
+                    <a href="#"><span>IG</span></a>
+                    <a href="#"><span>YT</span></a>
+                </div>
+            </div>
+            <div class="footer-col">
+                <h3>Products</h3>
+                <ul>
+                    <li><a href="products.html#over-ear">Over-Ear Headphones</a></li>
+                    <li><a href="products.html#earbuds">Wireless Earbuds</a></li>
+                    <li><a href="products.html#studio">Studio Headphones</a></li>
+                    <li><a href="products.html#accessories">Accessories</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h3>Support</h3>
+                <ul>
+                    <li><a href="#">FAQs</a></li>
+                    <li><a href="#">User Manuals</a></li>
+                    <li><a href="#">Warranty Information</a></li>
+                    <li><a href="contact.html">Contact Support</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h3>Company</h3>
+                <ul>
+                    <li><a href="#">About Us</a></li>
+                    <li><a href="#">Careers</a></li>
+                    <li><a href="#">Press Releases</a></li>
+                    <li><a href="#">Privacy Policy</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="copyright">
+            <p>© 2025 SonicWave. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Modal - REUSED FROM HOME PAGE -->
+    <div class="modal" id="subscribeModal">
+        <div class="modal-content">
+            <span class="close-modal" id="closeModal">×</span>
+            <h3>Thank You for Subscribing!</h3>
+            <p>You have been added to our mailing list and will receive updates on our latest products and promotions.</p>
+        </div>
+    </div>
+
+    <!-- JavaScript - REUSED FROM HOME PAGE -->
+    <script>
+        // Handle mobile navigation
+        const hamburger = document.getElementById('hamburger');
+        const navLinks = document.getElementById('navLinks');
+
+        hamburger.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+        });
+
+        // Handle newsletter subscription
+        const newsletterForm = document.getElementById('newsletterForm');
+        const subscribeModal = document.getElementById('subscribeModal');
+        const closeModal = document.getElementById('closeModal');
+        const emailInput = document.getElementById('emailInput');
+
+        newsletterForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+
+            // Validate email (simple validation)
+            const email = emailInput.value;
+            if (!email || !email.includes('@') || !email.includes('.')) {
+                alert('Please enter a valid email address');
+                return;
+            }
+
+            // Show success modal
+            subscribeModal.style.display = 'flex';
+
+            // Clear the form
+            emailInput.value = '';
+        });
+
+        closeModal.addEventListener('click', () => {
+            subscribeModal.style.display = 'none';
+        });
+
+        // Close modal if clicking outside
+        window.addEventListener('click', (e) => {
+            if (e.target === subscribeModal) {
+                subscribeModal.style.display = 'none';
+            }
+        });
+
+        // Add smooth scrolling for in-page feature links (if you decide to add them later)
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+</body>
+</html>
