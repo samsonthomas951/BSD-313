@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SonicWave - Premium Headphones</title>
     <style>
-        /* General Styles */
         * {
             margin: 0;
             padding: 0;
@@ -28,7 +27,6 @@
             text-decoration: underline;
         }
 
-        /* Header Styles */
         header {
             background: linear-gradient(135deg, #2c3e50, #1a1a2e);
             color: white;
@@ -88,9 +86,8 @@
             cursor: pointer;
         }
 
-        /* Hero Section */
         .hero {
-            background: url('/api/placeholder/1200/600') no-repeat center center/cover;
+            background: url('https://cdn-img.oraimo.com/fit-in/600x600/NG/product/2024/08/15/OTW-630-680-3x.jpg') no-repeat center center/cover;
             min-height: 80vh;
             display: flex;
             align-items: center;
@@ -144,7 +141,6 @@
             text-decoration: none;
         }
 
-        /* Features Section */
         .features {
             padding: 5rem 2rem;
             max-width: 1200px;
@@ -418,7 +414,6 @@
             color: #1a1a2e;
         }
 
-        /* Responsive styles */
         @media (max-width: 768px) {
             .header-container {
                 padding: 0 1rem;
@@ -473,7 +468,6 @@
     </style>
 </head>
 <body>
-    <!-- Header Section -->
     <header>
         <div class="header-container">
             <div class="logo">
@@ -491,7 +485,6 @@
         </div>
     </header>
 
-    <!-- Hero Section -->
     <section class="hero">
         <div class="hero-content">
             <h2>Experience Sound Like Never Before</h2>
@@ -500,7 +493,6 @@
         </div>
     </section>
 
-    <!-- Features Section -->
     <section class="features">
         <div class="section-title">
             <h2>Why Choose SonicWave?</h2>
@@ -540,7 +532,6 @@
         </div>
     </section>
 
-    <!-- Newsletter Section -->
     <section class="newsletter">
         <div class="newsletter-container">
             <h2>Stay Updated</h2>
@@ -552,7 +543,6 @@
         </div>
     </section>
 
-    <!-- Footer -->
     <footer>
         <div class="footer-container">
             <div class="footer-col">
@@ -614,7 +604,6 @@
         </div>
     </footer>
 
-    <!-- Modal -->
     <div class="modal" id="subscribeModal">
         <div class="modal-content">
             <span class="close-modal" id="closeModal">&times;</span>
@@ -623,9 +612,7 @@
         </div>
     </div>
 
-    <!-- JavaScript -->
     <script>
-        // Handle mobile navigation
         const hamburger = document.getElementById('hamburger');
         const navLinks = document.getElementById('navLinks');
         
@@ -633,7 +620,6 @@
             navLinks.classList.toggle('active');
         });
 
-        // Handle newsletter subscription
         const newsletterForm = document.getElementById('newsletterForm');
         const subscribeModal = document.getElementById('subscribeModal');
         const closeModal = document.getElementById('closeModal');
@@ -642,17 +628,14 @@
         newsletterForm.addEventListener('submit', (e) => {
             e.preventDefault();
             
-            // Validate email (simple validation)
             const email = emailInput.value;
             if (!email || !email.includes('@') || !email.includes('.')) {
                 alert('Please enter a valid email address');
                 return;
             }
             
-            // Show success modal
             subscribeModal.style.display = 'flex';
             
-            // Clear the form
             emailInput.value = '';
         });
         
@@ -660,14 +643,12 @@
             subscribeModal.style.display = 'none';
         });
         
-        // Close modal if clicking outside
         window.addEventListener('click', (e) => {
             if (e.target === subscribeModal) {
                 subscribeModal.style.display = 'none';
             }
         });
 
-        // Add smooth scrolling
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
                 e.preventDefault();
@@ -677,7 +658,6 @@
             });
         });
 
-        // Feature card animation on scroll
         const featureCards = document.querySelectorAll('.feature-card');
         
         window.addEventListener('scroll', () => {
@@ -692,11 +672,9 @@
             });
         });
 
-        // Random discount popup after 10 seconds
         setTimeout(() => {
             const discountCode = Math.random().toString(36).substring(2, 8).toUpperCase();
             
-            // Create discount element
             const discountPopup = document.createElement('div');
             discountPopup.style.position = 'fixed';
             discountPopup.style.bottom = '20px';
@@ -722,7 +700,6 @@
             });
         }, 10000);
 
-        // Add some simple animations
         document.head.insertAdjacentHTML('beforeend', `
             <style>
                 @keyframes fadeIn {
